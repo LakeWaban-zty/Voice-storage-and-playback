@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../my_code/Inc</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\my_code\Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -568,6 +568,16 @@
               <FileName>my_usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\my_code\Src\my_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>zuolan_inside_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\my_code\Src\zuolan_inside_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>my_hmi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\my_code\Src\my_hmi.c</FilePath>
             </File>
           </Files>
         </Group>

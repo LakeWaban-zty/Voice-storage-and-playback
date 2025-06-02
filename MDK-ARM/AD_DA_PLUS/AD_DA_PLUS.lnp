@@ -32,6 +32,8 @@
 "ad_da_plus\stm32f4xx_hal_uart.o"
 "ad_da_plus\system_stm32f4xx.o"
 "ad_da_plus\my_usart_1.o"
+"ad_da_plus\zuolan_inside_flash.o"
+"ad_da_plus\my_hmi.o"
 --strict --scatter "AD_DA_PLUS\AD_DA_PLUS.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

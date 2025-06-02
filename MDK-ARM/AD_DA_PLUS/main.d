@@ -43,4 +43,8 @@ ad_da_plus\main.o: ../Core/Inc/tim.h
 ad_da_plus\main.o: ../Core/Inc/usart.h
 ad_da_plus\main.o: ../Core/Inc/gpio.h
 ad_da_plus\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-ad_da_plus\main.o: ../my_code/Inc/my_usart.h
+ad_da_plus\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+ad_da_plus\main.o: ..\my_code\Inc\my_hmi.h
+ad_da_plus\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+ad_da_plus\main.o: ..\my_code\Inc\my_usart.h
+ad_da_plus\main.o: ..\my_code\Inc\zuolan_inside_flash.h
