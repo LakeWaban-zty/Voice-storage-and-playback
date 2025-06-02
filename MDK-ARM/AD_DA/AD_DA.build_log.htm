@@ -1,0 +1,118 @@
+<html>
+<body>
+<pre>
+<h1>�Vision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ��Vision V5.41.0.0
+Copyright (C) 2024 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 1, 1, LIC=BUURY-IJZ7Z-MMI9I-TV1G6-EDBAK-W7KB9
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.41.0.0
+Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.41.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      CMSIS_AGDI.dll V1.33.21.0
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+E:\stm32_code\AD_DA\MDK-ARM\AD_DA.uvprojx
+Project File Date:  04/24/2025
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'AD_DA'
+compiling stm32f4xx_ll_adc.c...
+assembling startup_stm32f407xx.s...
+compiling stm32f4xx_hal_msp.c...
+compiling gpio.c...
+compiling stm32f4xx_it.c...
+../Core/Inc/usart.h(35): warning:  #47-D: incompatible redefinition of macro "RX_BUFFER_SIZE"  (declared at line 64 of "../Core/Inc/main.h")
+  #define RX_BUFFER_SIZE 128 // 每个串口的接收缓冲区大小
+../Core/Src/stm32f4xx_it.c(259): error:  #20: identifier "commandReceived2" is undefined
+          commandReceived2 = 1;           // 设置命令接收标志
+../Core/Src/stm32f4xx_it.c: 1 warning, 1 error
+compiling main.c...
+../Core/Inc/usart.h(35): warning:  #47-D: incompatible redefinition of macro "RX_BUFFER_SIZE"  (declared at line 64 of "../Core/Inc/main.h")
+  #define RX_BUFFER_SIZE 128 // 每个串口的接收缓冲区大小
+../Core/Src/main.c(107): error:  #167: argument of type "uint8_t (*)[128]" is incompatible with parameter of type "uint8_t *"
+    HAL_UART_Receive_IT(&huart2, &rxBuffer2, 1);
+../Core/Src/main.c(139): error:  #20: identifier "commandReceived2" is undefined
+          if (commandReceived2)
+../Core/Src/main.c(142): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+              if(strcmp(rxBuffer2, "start") == 0)
+../Core/Src/main.c(152): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+              else if(strcmp(rxBuffer2, "stop") == 0)
+../Core/Src/main.c: 3 warnings, 2 errors
+compiling usart.c...
+../Core/Inc/usart.h(35): warning:  #47-D: incompatible redefinition of macro "RX_BUFFER_SIZE"  (declared at line 64 of "../Core/Inc/main.h")
+  #define RX_BUFFER_SIZE 128 // 每个串口的接收缓冲区大小
+../Core/Src/usart.c(47): error:  #20: identifier "va_list" is undefined
+    va_list arg;      // 可变参数列表
+../Core/Src/usart.c(50): warning:  #223-D: function "va_start" declared implicitly
+    va_start(arg, format);                                // 初始化可变参数列�?
+../Core/Src/usart.c(51): warning:  #223-D: function "vsnprintf" declared implicitly
+    len = vsnprintf(buffer, sizeof(buffer), format, arg); // 格式化字符串
+../Core/Src/usart.c(52): warning:  #223-D: function "va_end" declared implicitly
+    va_end(arg);                                          // 清理可变参数列表
+../Core/Src/usart.c: 4 warnings, 1 error
+compiling dma.c...
+compiling adc.c...
+../Core/Inc/usart.h(35): warning:  #47-D: incompatible redefinition of macro "RX_BUFFER_SIZE"  (declared at line 64 of "../Core/Inc/main.h")
+  #define RX_BUFFER_SIZE 128 // 每个串口的接收缓冲区大小
+../Core/Src/adc.c: 1 warning, 0 errors
+compiling stm32f4xx_hal_rcc_ex.c...
+compiling tim.c...
+compiling dac.c...
+compiling stm32f4xx_hal_adc.c...
+compiling stm32f4xx_hal_adc_ex.c...
+compiling stm32f4xx_hal_rcc.c...
+compiling stm32f4xx_hal.c...
+compiling stm32f4xx_hal_pwr_ex.c...
+compiling stm32f4xx_hal_dma.c...
+compiling stm32f4xx_hal_flash_ramfunc.c...
+compiling stm32f4xx_hal_dac_ex.c...
+compiling stm32f4xx_hal_cortex.c...
+compiling stm32f4xx_hal_pwr.c...
+compiling stm32f4xx_hal_flash_ex.c...
+compiling stm32f4xx_hal_gpio.c...
+compiling stm32f4xx_hal_exti.c...
+compiling stm32f4xx_hal_dac.c...
+compiling stm32f4xx_hal_flash.c...
+compiling stm32f4xx_hal_dma_ex.c...
+compiling system_stm32f4xx.c...
+compiling stm32f4xx_hal_tim_ex.c...
+compiling stm32f4xx_hal_uart.c...
+compiling stm32f4xx_hal_tim.c...
+"AD_DA\AD_DA.axf" - 4 Error(s), 9 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                https://www.keil.com/pack/ARM.CMSIS.6.1.0.pack
+                ARM::CMSIS@6.1.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 6.1.0
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F4xx_DFP.3.0.0.pack
+                Keil::STM32F4xx_DFP@3.0.0
+                STMicroelectronics STM32F4 Series Device Support
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_AD_DA
+  D:/Keil_v5/ARM/PACK/ARM/CMSIS/6.1.0/CMSIS/Core/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE@6.1.0
+Target not created.
+Build Time Elapsed:  00:00:12
+</pre>
+</body>
+</html>
