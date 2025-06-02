@@ -28,6 +28,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "string.h"
+#include "my_usart.h" // 自定义的串口通信函数
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,14 +49,14 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
-volatile uint8_t adc_conversion_complete = 0; // ADC转换完成标志
+uint8_t dma_running = 0; // 标记DMA状态
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void Start_ADC_DAC_DMA(void);
+void Stop_ADC_DAC_DMA(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -99,75 +100,61 @@ int main(void)
   MX_USART2_UART_Init();
   MX_DAC_Init();
   MX_TIM2_Init();
+  MX_USART1_UART_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim2);
-  // 配置ADC为单次转换模式
-  // hadc1.Instance->CR2 &= ~ADC_CR2_CONT;
-  // 启动串口中断接收
-  HAL_UART_Receive_IT(&huart2, &rxBuffer2, 1);
-  // 启动ADC DMA (填充整个缓冲区)
-  // if (HAL_ADC_Start_DMA(&hadc1,
-  //                      (uint32_t *)adc_dac_buffer,
-  //                      BUFFER_SIZE) != HAL_OK)
-  //{
-  //  Error_Handler();
-  //}
+  HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
+  HAL_UART_Receive_IT(&huart2, &rxTemp2, 1);
+  // 初始状态下不启动DMA传输
+  dma_running = 0;
+  my_printf(&huart2, "System initialized. Send 'start' to begin ADC/DAC or 'stop' to halt.\r\n");
 
-  // 启动DAC DMA (使用相同缓冲区)
-  if (HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1,
-                        (uint32_t *)adc_dac_buffer,
-                        BUFFER_SIZE,
-                        DAC_ALIGN_12B_R) != HAL_OK)
-  {
-    Error_Handler();
-  }
-///111ss
-  // 确保ADC和TIM2初始状态正确
-  HAL_ADC_Stop_DMA(&hadc1);
-  HAL_TIM_Base_Stop(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if (adc_conversion_complete)
+    if (strcmp((const char *)rxBuffer2, "start") == 0)
     {
-      // 处理ADC数据完成的操作
-      // 例如：可以在这里将数据通过串口发送出去
-      
-        if (commandReceived2)
-        {
-            commandReceived2 = 0;
-            if(strcmp(rxBuffer2, "start") == 0)
-            {
-                // 启动ADC DMA (填充整个缓冲区)
-                if (HAL_ADC_Start_DMA(&hadc1,
-                                      (uint32_t *)adc_dac_buffer,
-                                      BUFFER_SIZE) != HAL_OK)
-                {
-                    Error_Handler();
-                }
-            }
-            else if(strcmp(rxBuffer2, "stop") == 0)
-            {
-                // 停止ADC DMA
-                HAL_ADC_Stop_DMA(&hadc1);
+      // 清空接收缓冲区
+      memset(rxBuffer2, 0, RX_BUFFER_SIZE);
+      rxIndex2 = 0;
 
-            }
-            memset(rxBuffer2, 0, rxIndex2);
-        }
+      // 如果DMA已经在运行，先停止
+      if (dma_running)
+      {
+        Stop_ADC_DAC_DMA();
+        HAL_Delay(100); // 给系统一点时间完成停止操作
+      }
 
-      // 重置标志
-      adc_conversion_complete = 0;
+      // 启动ADC和DAC的DMA传输
+      Start_ADC_DAC_DMA();
+    }
+    else if (strcmp((const char *)rxBuffer2, "stop") == 0)
+    {
+      // 清空接收缓冲区
+      memset(rxBuffer2, 0, RX_BUFFER_SIZE);
+      rxIndex2 = 0;
+
+      // 如果DMA正在运行，停止它
+      if (dma_running)
+      {
+        Stop_ADC_DAC_DMA();
+      }
+      else
+      {
+        my_printf(&huart2, "ADC/DAC DMA is not running\r\n");
+      }
     }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
-}
 
+    /* USER CODE END 3 */
+  }
+}
 /**
  * @brief System Clock Configuration
  * @retval None
@@ -213,7 +200,57 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+/**
+ * @brief 启动ADC和DAC的DMA传输
+ * @retval None
+ */
+void Start_ADC_DAC_DMA(void)
+{
+  // 启动ADC DMA (连续模式)
+  if (HAL_ADC_Start_DMA(&hadc1,
+                        (uint32_t *)adc_dac_buffer,
+                        BUFFER_SIZE) != HAL_OK)
+  {
+    my_printf(&huart2, "ADC DMA start failed\r\n");
+    Error_Handler();
+  }
+  else
+  {
+    my_printf(&huart2, "ADC DMA started successfully in circular mode\r\n");
+  }
 
+  // 启动DAC DMA (连续模式)
+  if (HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1,
+                        (uint32_t *)adc_dac_buffer,
+                        BUFFER_SIZE,
+                        DAC_ALIGN_12B_R) != HAL_OK)
+  {
+    HAL_ADC_Stop_DMA(&hadc1);
+    my_printf(&huart2, "DAC DMA start failed\r\n");
+    Error_Handler();
+  }
+  else
+  {
+    my_printf(&huart2, "DAC DMA started successfully in circular mode\r\n");
+    dma_running = 1; // 标记DMA已启动
+  }
+}
+
+/**
+ * @brief 停止ADC和DAC的DMA传输
+ * @retval None
+ */
+void Stop_ADC_DAC_DMA(void)
+{
+  // 先停止ADC的DMA
+  HAL_ADC_Stop_DMA(&hadc1);
+
+  // 再停止DAC的DMA
+  HAL_DAC_Stop_DMA(&hdac, DAC_CHANNEL_1);
+
+  my_printf(&huart2, "ADC/DAC DMA stopped\r\n");
+  dma_running = 0; // 标记DMA已停止
+}
 /* USER CODE END 4 */
 
 /**

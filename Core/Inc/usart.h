@@ -29,27 +29,22 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-#include "stm32f4xx_hal.h"
-#include "usart.h"
-#include "stdint.h"
-#define RX_BUFFER_SIZE 128 // 每个串口的接收缓冲区大小
-// 数据包
-#define MIN_FRAME_SIZE 3  // 最小帧大小
-extern uint8_t rxTemp1, rxTemp2, rxTemp3;
-extern uint8_t rxBuffer1[RX_BUFFER_SIZE], rxBuffer2[RX_BUFFER_SIZE], rxBuffer3[RX_BUFFER_SIZE];
-extern uint16_t rxIndex1, rxIndex2, rxIndex3;
-extern volatile uint8_t commandReceived1, commandReceived3;
-int my_printf(UART_HandleTypeDef *huart, const char *format, ...);
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
+
 /* USER CODE END Includes */
 
+extern UART_HandleTypeDef huart1;
+
 extern UART_HandleTypeDef huart2;
+
+extern UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
 
+void MX_USART1_UART_Init(void);
 void MX_USART2_UART_Init(void);
+void MX_USART3_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
