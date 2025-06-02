@@ -1,5 +1,5 @@
 ad_da_plus\my_usart_1.o: ..\my_code\Src\my_usart.c
-ad_da_plus\my_usart_1.o: ..\my_code\Inc\my_usart.h
+ad_da_plus\my_usart_1.o: ../my_code/Inc/my_usart.h
 ad_da_plus\my_usart_1.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 ad_da_plus\my_usart_1.o: ../Core/Inc/stm32f4xx_hal_conf.h
 ad_da_plus\my_usart_1.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h

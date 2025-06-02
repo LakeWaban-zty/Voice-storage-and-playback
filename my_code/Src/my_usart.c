@@ -57,7 +57,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
             {
                 commandReceived2 = 1;           // 设置命令接收标志
                 rxBuffer2[rxIndex2 - 1] = '\0'; // 添加字符串结束符
-                rxIndex2 = 0;                   // 重置接收索引
             }
             else
             {
@@ -70,5 +69,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
         }
         HAL_UART_Receive_IT(&huart2, &rxTemp2, 1); // 再次启动接收中断
     }
-}
 
+
+}

@@ -1,5 +1,5 @@
 ad_da_plus\zuolan_inside_flash.o: ..\my_code\Src\zuolan_inside_flash.c
-ad_da_plus\zuolan_inside_flash.o: ..\my_code\Inc\zuolan_inside_flash.h
+ad_da_plus\zuolan_inside_flash.o: ../my_code/Inc/zuolan_inside_flash.h
 ad_da_plus\zuolan_inside_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 ad_da_plus\zuolan_inside_flash.o: ../Core/Inc/stm32f4xx_hal_conf.h
 ad_da_plus\zuolan_inside_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h

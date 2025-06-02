@@ -1,5 +1,5 @@
 ad_da_plus\my_hmi.o: ..\my_code\Src\my_hmi.c
-ad_da_plus\my_hmi.o: ..\my_code\Inc\my_hmi.h
+ad_da_plus\my_hmi.o: ../my_code/Inc/my_hmi.h
 ad_da_plus\my_hmi.o: ../Core/Inc/main.h
 ad_da_plus\my_hmi.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 ad_da_plus\my_hmi.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -39,6 +39,6 @@ ad_da_plus\my_hmi.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 ad_da_plus\my_hmi.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 ad_da_plus\my_hmi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 ad_da_plus\my_hmi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-ad_da_plus\my_hmi.o: ..\my_code\Inc\my_usart.h
+ad_da_plus\my_hmi.o: ../my_code/Inc/my_usart.h
 ad_da_plus\my_hmi.o: ../Core/Inc/usart.h
 ad_da_plus\my_hmi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
